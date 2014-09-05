@@ -49,8 +49,8 @@ private
     end
     request['X-Forwarded-For'] = (current_request.env['X-Forwarded-For'].to_s.split(/, +/) + [current_request.env['REMOTE_ADDR']]).join(', ')
     request['X-Forwarded-Host'] = current_request.env['HTTP_X_FORWARDED_HOST'] || current_request.env['HTTP_HOST']
-    request['X-Forwarded-Scheme'] = current_request.env['HTTP_X_FORWARDED_SCHEME'] || current_request.env["rack.url_scheme"]
-    
+    request['X-Forwarded-Scheme'] = request['X-Forwarded-Proto'] = current_request.env['HTTP_X_FORWARDED_SCHEME'] || current_request.env['HTTP_X_FORWARDED_PROTO'] || current_request.env["rack.url_scheme"]
+
     log_headers :debug, 'Proxy Request Headers:', request
 
     request
